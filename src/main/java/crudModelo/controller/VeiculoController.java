@@ -1,6 +1,5 @@
 package crudModelo.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,47 +15,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import crudModelo.model.Proprietario;
-import crudModelo.repository.ProprietarioRepository;
 
-
+import crudModelo.model.Veiculo;
+import crudModelo.repository.VeiculoRepository;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/proprietarios")
-public class ProprietarioController {
-	
+@RequestMapping("/veiculos")
+public class VeiculoController {
+
 	@Autowired
-	private ProprietarioRepository proprietarioRepository;
+	private VeiculoRepository veiculorepository;
 	
 	@GetMapping
-	public List<Proprietario> listar() {
-		return proprietarioRepository.findAll();
+	public List<Veiculo> listar() {
+		return veiculorepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Proprietario PegarId(@PathVariable Long id) {
-		return proprietarioRepository.findById(id).get();
+	public Veiculo PegarId(@PathVariable Long id) {
+		return veiculorepository.findById(id).get();
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Proprietario adicionar (@RequestBody Proprietario proprietario) {
-		return proprietarioRepository.save(proprietario);
+	public Veiculo adicionar (@RequestBody Veiculo veiculo) {
+		return veiculorepository.save(veiculo);
 	}
 	
 	@PutMapping("/{id}")
-	public Proprietario atualizar (@PathVariable Long id, @RequestBody Proprietario proprietario) {
-		//proprietarioRepository.findById(id);
-		proprietario.setId(id);
-		return proprietarioRepository.save(proprietario);
+	public Veiculo atualizar (@PathVariable Long id, @RequestBody Veiculo veiculo) {
+		veiculo.setId(id);
+		return veiculorepository.save(veiculo);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void excluir (@PathVariable Long id) {
-		proprietarioRepository.delete(proprietarioRepository.findById(id).get());
+		veiculorepository.delete(veiculorepository.findById(id).get());
 	}
-	
-	
 	
 }
